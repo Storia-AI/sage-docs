@@ -1,24 +1,26 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Storia Sage",
+  "theme": "prism",
+  "layout": "sidenav",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#ff8412",
+    "light": "#ffc264",
+    "dark": "#272d47",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#ffc264",
+      "to": "#fc8503"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "https://discord.gg/zbtZe7GcVU"
     }
   ],
   "topbarCtaButton": {
