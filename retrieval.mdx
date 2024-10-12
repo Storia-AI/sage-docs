@@ -1,0 +1,24 @@
+---
+title: 'Other retrieval strategies'
+description: 'Experiment with retrieval strategies beyond vanilla RAG'
+---
+
+Retrieving the relevant files for a particular user query is arguably the quality bottleneck of the chat experience.
+We are actively experimenting with various strategies and documenting our findings [here](https://github.com/Storia-AI/sage/tree/main/benchmarks/retrieval).
+
+Our two main buckets of retrieval strategies are [LLM-based](http://localhost:3001/quality#llm-based-retrieval) and [vector-based](http://localhost:3001/quality#vector-based-retrieval).
+We use LLM-based retrieval by default, as it is the easiest to set up. For larger codebases and better quality, we resort to vector-based retrieval. The rest of this section lists variations of the latter.
+
+#### Dense retrieval
+Code chunks are embedded into a dense vector space. At inference time, the user query is embedded into the same space.
+Retrieving relevant documents is equivalent to finding the nearest neighbors to the embedded query in the vector store.
+This is the default vector-based retrieval strategy.
+
+#### Hybrid retrieval
+Combines dense retrieval (embeddings) with sparse retrieval ([BM25](https://en.wikipedia.org/wiki/Okapi_BM25)).
+
+#### Multi-query retrieval
+Performs multiple query rewrites (paraphrases of the user question), makes a separate retrieval for each call, then takes the union of retrieved documents. This can be combined with both dense and hybrid retrieval.
+
+#### Contextual retrieval
+Each chunk is concatenated with a (localized) summary of the enclosing file.

@@ -1,0 +1,34 @@
+---
+title: Chat with GitHub Issues
+description: 'Ask questions about open GitHub issues'
+---
+Adding GitHub issues to your chat experience enables you to get a high-level understanding of the work that needs to be done.
+An indirect benefit is that, when asking code-related questions, the LLM has more context on bugs and features that don't exist yet (and is less likely to hallucinate them).
+
+## Requirements
+
+### Set up a vector store
+In order to chat with GitHub issues, you will need to use [advanced retrieval](quality#advanced-retrieval), which requires a vector store to be set up.
+- To index your codebase locally, [set up Marqo](http://localhost:3001/local#optional-index-the-codebase-with-marqo).
+- Alternatively, for a managed vector store, [set up Pinecone](http://localhost:3001/quality#setting-up-the-vector-store).
+
+### Private GitHub token
+In order to call GitHub's API, we need a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+Once you've created the token, export it to an environment variable:
+```
+export GITHUB_TOKEN=...
+```
+
+## Index issues
+To index GitHub issues *without* comments:
+```
+sage-index $GITHUB_REPO --index-issues
+```
+To index GitHub issues *with* comments:
+```
+sage-index $GITHUB_REPO --index-issues --index-issue-comments
+```
+To index GitHub issues, but not the codebase:
+```
+sage-index $GITUB_REPO --index-issues --no-index-repo
+```

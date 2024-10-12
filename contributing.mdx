@@ -1,0 +1,43 @@
+---
+title: 'Contributing'
+description: 'Contribute to the Sage open-source project'
+---
+
+Thank you for considering contributing to Sage! To claim a task, take a look at our [unassigned issues](https://github.com/Storia-AI/sage/issues?q=is%3Aissue+is%3Aopen+no%3Aassignee) and comment directly on the ones you want to tackle. We strive to label issues with an approximate level of difficulty between 1 and 5.
+
+![hacktoberfest](images/hacktoberfest-banner.png)
+We're excited to be part of Hacktoberfest 2024. Check out our curated list of [Hacktoberfest issues](https://github.com/Storia-AI/sage/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest+no%3Aassignee). We add new ones daily!
+
+## Setting up your environment
+First, set up a Python virtual environment:
+```
+python -m venv sage-venv
+source sage-venv/bin/activate
+```
+
+Next, clone the repository and install its dependencies:
+```
+git clone https://github.com/Storia-AI/sage.git
+cd sage
+pip install -e .
+```
+
+## Running unit tests
+After you make your changes, double-check you haven't broken existing functionality by running unit tests:
+```
+pip install pytest
+pytest sage/tests
+```
+
+## Code Formatting
+To keep the codebase clean, we use [isort](https://pycqa.github.io/isort/) and [black](https://github.com/psf/black). To run the formatters:
+```
+pip install isort black
+isort sage
+black --line-length=120 sage
+```
+
+## Types of contributions
+While we welcome code contributions, there are many other ways to make an impact.
+For instance, if you find this documentation incomplete or unclear, let us know via [Discord](https://discord.gg/zbtZe7GcVU), submit [an issue](https://github.com/Storia-AI/sage/issues/new/choose), or send a pull request with improved verbiage.
+Any suggestions for simplifying the setup are also welcome.

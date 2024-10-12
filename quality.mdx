@@ -1,20 +1,26 @@
 ---
-title: 'Improving quality'
-description: 'Get better answers by using state-of-the-art components.'
+title: 'Get better quality'
+description: 'Get better answers by using state-of-the-art components'
 ---
 
 ## Background
-Our [Quickstart](quickstart) guide is meant to get you up and running as quickly as possible. Here we focus on better-quality answers, faster responses and a more reliable pipeline. Since there's no free lunch, this also requires a more involved setup.
+Our [Quickstart](quickstart) guide is meant to get you up and running as quickly as possible. Here we focus on more accurate answers, faster responses and a generally more reliable pipeline. Since there's no free lunch, the setup is more involved.
 
-## Improving Retrieval
+> In summary, this section walks you through the following steps:
+> 1. Switch from LLM-based retrieval to vector-based retrieval.
+> 2. Set up API keys for the embedder, vector store and reranker.
+> 3. Index the codebase.
+> 4. Enjoy the improved chat experience.
+
+## Better retrieval
 Responding to a user query involves two steps: (1) figuring out which files are the most relevant to the user query and (2) passing the content of these files together with the user query to an LLM.
 
-### Basic Retrieval
-By default, we simply list all the file paths in the codebase and ask an LLM to identify which ones are most relevant to the user query solely based on the paths. This is suboptimal for multiple reasons:
+### LLM-based retrieval
+By default, we simply list all the file paths in the codebase and ask an LLM to identify which ones are most relevant to the user query. We expect the LLM to make a decision solely based on the paths. This is suboptimal for multiple reasons:
 - Enumerating all the file paths might exceed the LLM context.
 - The LLM has no visibility into the actual content of the files.
 
-### Advanced Retrieval
+### Vector-based retrieval
 A more principled way of retrieving relevant files invovles the following steps:
 1. Chunk all the files into relatively equally-sized text snippets.
 2. Embed the chunks (turn them into float vectors).
@@ -30,7 +36,7 @@ In the following section, we will set API keys for these components.
 
 ### Setting up API keys
 
-#### Setting up the embedder
+#### Embedder API keys
 There are multiple third-party providers that offer batch embedding APIs. The plot below shows how well they perform on [our benchmark](https://github.com/Storia-AI/sage/tree/main/benchmarks/retrieval):
 ![embeddings-plot](images/embeddings.png)
 
@@ -59,7 +65,7 @@ Overall, we recommend using OpenAI's `text-embedding-3-small` model, which achie
     </Accordion>
 </AccordionGroup>
 
-#### Setting up the vector store
+#### Vector store keys
 Currently, we only support [Pinecone](https://pinecone.io) as a third-party managed vector database. We are actively working on adding more providers.
 
 Here is how you can get it set up:
@@ -73,7 +79,7 @@ Here is how you can get it set up:
     </Accordion>
 </AccordionGroup>
 
-#### Setting up the reranker
+#### Reranker API keys
 There are multiple third-party providers that offer reranking APIs.  The plot below shows how well they perform on [our benchmark](https://github.com/Storia-AI/sage/tree/main/benchmarks/retrieval):
 ![plot-rerankers](images/rerankers.png)
 

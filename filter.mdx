@@ -1,0 +1,34 @@
+---
+title: 'Filter files'
+description: 'Control which files are considered for retrieval'
+---
+Codebases can contain a lot of irrelevant files that might trip up the LLM.
+To control which files are added to the retrieval set, you can specify an inclusion or exclusion file in the following format:
+
+```
+# This is a comment
+ext:.my-ext-1
+ext:.my-ext-2
+ext:.my-ext-3
+dir:my-dir-1
+dir:my-dir-2
+dir:my-dir-3
+file:my-file-1.md
+file:my-file-2.py
+file:my-file-3.cpp
+```
+where:
+- `ext` specifies a file extension
+- `dir` specifies a directory. This is not a full path. For instance, if you specify `dir:tests` in an exclusion directory, then `/path/to/my/tests/file.py` will be ignored.
+- `file` specifies a file name. This is also not a full path. For instance, if you specify `file:__init__.py`, then `/path/to/my/__init__.py` will be ignored.
+
+To specify an inclusion file (i.e. only index the specified files):
+```
+sage-index $GITHUB_REPO --include=/path/to/inclusion/file
+```
+
+To specify an exclusion file (i.e. index all files, except for the ones specified):
+```
+sage-index $GITHUB_REPO --exclude=/path/to/exclusion/file
+```
+By default, we use the exclusion file [sample-exclude.txt](https://github.com/Storia-AI/sage/blob/main/sage/sample-exclude.txt).

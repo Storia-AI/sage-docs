@@ -1,11 +1,13 @@
 ---
 title: 'Running locally'
-description: 'Use local tools so that your code never leaves your machine.'
+description: 'Use local tools so that your code never leaves your machine'
 ---
 
-## Prerequisites
+import InstallSage from '/snippets/install-sage.mdx';
 
-### Install Ollama
+<InstallSage />
+
+## Install Ollama
 
 To run any open-source LLM directly on your machine, use [Ollama](https://github.com/ollama/ollama):
 
@@ -13,16 +15,15 @@ To run any open-source LLM directly on your machine, use [Ollama](https://github
 2. Open a new terminal window.
 3. Pull the desired model, for instance: `ollama pull llama3.1`.
 
-### Install Marqo (Optional)
+## Optional: Index the codebase with Marqo
 
 **If your codebase is small (less than 100 files), you can skip this section.**
 
-To give you the best experience while running Sage locally, we need to open the black box a little. Chatting with the codebase involves two steps: (1) figuring out what files are relevant to the user query, and (2) feeding these files to an LLM.
+For larger codebases, we cannot afford to use the default [LLM-based retrieval](quality#llm-based-retrieval). Instead, we need to use [vector-based retrieval](quality#vector-based-retrieval), which requires chunking, embedding, and storing the codebase in a vector store.
+To achieve this locally, we use [Marqo](https://github.com/marqo-ai/marqo).
 
-By default, step (1) also relies on an LLM. We give it all the file paths and the user query and ask it to select the files that look relevant based on their paths. For large repositories, this is prohibitively expensive: the paths might not fit in the LLM context window, and even if they do, the inference will be very slow.
-
-Instead of using an LLM, we can achieve step (1) via "dense retrieval": we embed chunks of the codebase and store the embeddings in a [vector database](https://www.pinecone.io/learn/vector-database/). [Marqo](https://github.com/marqo-ai/marqo) enables us to do this locally. To set up Marqo:
-
+### Install Marqo
+First, make sure you have [Docker](https://docs.docker.com/engine/install/) installed. Then run:
 ```
 docker rm -f marqo
 docker pull marqoai/marqo:latest
@@ -31,18 +32,18 @@ docker run --name marqo -it -p 8882:8882 marqoai/marqo:latest
 
 This will open a persistent Marqo console window. It should take 2-3 minutes on a fresh install.
 
-### Install Sage
-First, make sure that [pipx](https://pipx.pypa.io/stable/installation/) is installed in your environment. Then install Sage:
+### Index the codebase
+To chunk, embed and store your codebase in the Marqo vector store, run the following command (replacing `huggingface/transformers` with your desired GitHub repository):
 ```
-pipx install git+https://github.com/Storia-AI/sage.git@main
+sage-index huggingface/transformers --mode=local
 ```
 
 ## Chat with any codebase locally
-You are now ready to chat with your codebase:
+You are now ready to chat with your codebase. Run the following command, making sure to replace `huggingface/transformers` with your desired GitHub repository:
 ```
 sage-chat huggingface/transformers --mode=local
 ```
-Make sure to replace `huggingface/transformers` with your desired GitHub repository. You should now have a [Gradio](https://www.gradio.app/) app running on localhost. Happy (local) chatting!
+You should now have a [Gradio](https://www.gradio.app/) app running on localhost. Happy (local) chatting!
 
 ## Customizations
 You can customize your chat experience by passing any of the following flags to the `sage-chat` command:

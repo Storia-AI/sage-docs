@@ -1,7 +1,11 @@
 ---
 title: 'Quickstart'
-description: 'Start chatting with any codebase in under two minutes.'
+description: 'Start chatting with any codebase in under two minutes'
 ---
+
+import InstallSage from '/snippets/install-sage.mdx';
+
+<InstallSage />
 
 ## Setup API keys
 
@@ -13,12 +17,6 @@ export ANTHROPIC_API_KEY=...
 If your GitHub repository is private, then you will also need a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens). This is not necessary for public repositories.
 ```
 export GITHUB_TOKEN=...
-```
-
-## Install Sage
-First, make sure that [pipx](https://pipx.pypa.io/stable/installation/) is installed in your environment. Then install Sage:
-```
-pipx install git+https://github.com/Storia-AI/sage.git@main
 ```
 
 ## Chat with any codebase
