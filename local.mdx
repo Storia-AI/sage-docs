@@ -1,0 +1,60 @@
+---
+title: 'Running locally'
+description: 'Use local tools so that your code never leaves your machine.'
+---
+
+## Prerequisites
+
+### Install Ollama
+
+To run any open-source LLM directly on your machine, use [Ollama](https://github.com/ollama/ollama):
+
+1. Go to [ollama.com](https://ollama.com) and download the appropriate binary for your machine.
+2. Open a new terminal window.
+3. Pull the desired model, for instance: `ollama pull llama3.1`.
+
+### Install Marqo (Optional)
+
+**If your codebase is small (less than 100 files), you can skip this section.**
+
+To give you the best experience while running Sage locally, we need to open the black box a little. Chatting with the codebase involves two steps: (1) figuring out what files are relevant to the user query, and (2) feeding these files to an LLM.
+
+By default, step (1) also relies on an LLM. We give it all the file paths and the user query and ask it to select the files that look relevant based on their paths. For large repositories, this is prohibitively expensive: the paths might not fit in the LLM context window, and even if they do, the inference will be very slow.
+
+Instead of using an LLM, we can achieve step (1) via "dense retrieval": we embed chunks of the codebase and store the embeddings in a [vector database](https://www.pinecone.io/learn/vector-database/). [Marqo](https://github.com/marqo-ai/marqo) enables us to do this locally. To set up Marqo:
+
+```
+docker rm -f marqo
+docker pull marqoai/marqo:latest
+docker run --name marqo -it -p 8882:8882 marqoai/marqo:latest
+```
+
+This will open a persistent Marqo console window. It should take 2-3 minutes on a fresh install.
+
+### Install Sage
+First, make sure that [pipx](https://pipx.pypa.io/stable/installation/) is installed in your environment. Then install Sage:
+```
+pipx install git+https://github.com/Storia-AI/sage.git@main
+```
+
+## Chat with any codebase locally
+You are now ready to chat with your codebase:
+```
+sage-chat huggingface/transformers --mode=local
+```
+Make sure to replace `huggingface/transformers` with your desired GitHub repository. You should now have a [Gradio](https://www.gradio.app/) app running on localhost. Happy (local) chatting!
+
+## Customizations
+You can customize your chat experience by passing any of the following flags to the `sage-chat` command:
+
+<ResponseField name="--llm-model" type="string">
+You can select any LLM from the [Ollama library](https://ollama.com/library). By default, we use `llama3.1`.
+</ResponseField>
+
+<ResponseField name="--embedding-model" type="string">
+The embedding model is responsible for converting text to dense vectors. You can select any embedding model from Hugging Face (the [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard) might be helpful). By default, we use `hf/e5-base-v2`.
+</ResponseField>
+
+<ResponseField name="--reranker-model" type="string">
+After retrieving the top 25 relevant files from the vector database, we use a reranker to narrow it down to top 5. You can choose any reranker from Hugging Face (check out the "Reranking" tab under the [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard)). By default, we use the [cross-encoder/ms-marco-MiniLM-L-6-v2](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2).
+</ResponseField>
