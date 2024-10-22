@@ -43,7 +43,6 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
         "quickstart",
         "local",
         "contributing"
