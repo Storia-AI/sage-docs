@@ -33,8 +33,8 @@ pytest sage/tests
 To keep the codebase clean, we use [isort](https://pycqa.github.io/isort/) and [black](https://github.com/psf/black). To run the formatters:
 ```
 pip install isort black
-isort sage
-black --line-length=120 sage
+isort --profile=black .
+black --line-length=120 .
 ```
 
 ## Types of contributions
