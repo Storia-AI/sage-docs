@@ -150,10 +150,10 @@ Once the codebase is indexed, the last piece to configure is the LLM that ingest
 
 Now we are finally ready to chat with the codebase and get much higher-quality answers:
 ```
-sage-chat huggingface/transformers
-    --mode=remote
-    --llm-provider=openai  # options: openai, anthropic
-    --llm-model=gpt-4      # optional
+sage-chat huggingface/transformers \
+    --llm-provider=openai \
+    --llm-model=gpt-4o \
+    --reranker-provider=nvidia
 ```
 Happy chatting!
 
