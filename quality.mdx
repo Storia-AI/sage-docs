@@ -124,12 +124,9 @@ Now that we have set up all the necessary keys, we are ready to index our codeba
 pipx install git+https://github.com/Storia-AI/sage.git@main
 ```
 
-2. Index the codebase. For instance, this is how you would index Hugging Face's [Transformers](https://github.com/huggingface/transformers) library using OpenAI embeddings and the NVIDIA reranker:
+2. Index the codebase. For instance, this is how you would index Hugging Face's [Transformers](https://github.com/huggingface/transformers) library using OpenAI embeddings:
 ```
-sage-index huggingface/transformers \
-    --mode=remote \
-    --embedding-provider=openai \  # options: openai, gemini, voyage
-    --reranker-provider=nvidia  # options: nvidia, voyage, cohere, jina
+sage-index huggingface/transformers --no-llm-retriever --embedding-provider=openai
 ```
 
 ## Chatting with the codebase
