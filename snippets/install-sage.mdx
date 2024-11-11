@@ -1,5 +1,19 @@
 ## Install Sage
-First, make sure that [pipx](https://pipx.pypa.io/stable/installation/) is installed in your environment. Then install Sage:
+1. Make sure you're using a Python version between 3.8 and 3.11 (note that MacOS Sequoia 15 comes with Python 3.13, which is not currently supported).
+    - To check your version, run `python3 --version`.
+    - If your version is not supported, you can use [pyenv](https://github.com/pyenv/pyenv). For instance:
 ```
-pipx install git+https://github.com/Storia-AI/sage.git@main
+pyenv install 3.10.10
+pyenv local 3.10.10
+```
+
+2. Make a virtual environment:
+```
+python3 -m venv my-venv
+source my-venv/bin/activae
+```
+
+3. Install Sage:
+```
+pip install storia-sage
 ```

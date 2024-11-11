@@ -3,6 +3,8 @@ title: 'Get better quality'
 description: 'Get better answers by using state-of-the-art components'
 ---
 
+import InstallSage from '/snippets/install-sage.mdx';
+
 ## Background
 Our [Quickstart](quickstart) guide is meant to get you up and running as quickly as possible. Here we focus on more accurate answers, faster responses and a generally more reliable pipeline. Since there's no free lunch, the setup is more involved.
 
@@ -119,10 +121,7 @@ We recommned using NVIDIA. Here are instructions for all the providers:
 ## Indexing the codebase
 Now that we have set up all the necessary keys, we are ready to index our codebase.
 
-1. Install Sage. As a prerequisite, you need [pipx](https://pipx.pypa.io/stable/installation/).
-```
-pipx install git+https://github.com/Storia-AI/sage.git@main
-```
+1. <InstallSage />
 
 2. Index the codebase. For instance, this is how you would index Hugging Face's [Transformers](https://github.com/huggingface/transformers) library using OpenAI embeddings:
 ```
